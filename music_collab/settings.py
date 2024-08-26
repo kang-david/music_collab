@@ -166,7 +166,13 @@ USE_TZ = True
 STATIC_URL = get_secret("AWS_S3_PUBLIC_URL_STATIC", "/static/")
 # STATIC_ROOT = os.path.join(BASE_DIR, "collectstatic")
 STATICFILES_DIRS = []
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+if os.getenv('AWS_ACCESS_KEY_ID') and os.getenv('AWS_SECRET_ACCESS_KEY') and os.getenv('AWS_STORAGE_BUCKET_NAME'):
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 MEDIA_URL = get_secret("AWS_S3_PUBLIC_URL_MEDIA", "/media/")
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
