@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: music_collab:latest
+    container_name: music_collab_web
+    env_file:
+      - env/.env
+    command:
+      - /bin/sh
+      - -c
+      - |
+        ./manage.py migrate
+        ./manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+
+  database:
+    image: postgres:13.1-alpine
+    container_name: music_collab_db
+    env_file:
+      - env/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./docker/init:/docker-entrypoint-initdb.d
+
+volumes:
+  dbdata:
+    driver: local

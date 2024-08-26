@@ -1,0 +1,6 @@
+-r common.txt
+black==22.3.0
+flake8==5.0.4
+isort==5.10.1
+pre-commit==2.20.0
+responses==0.21.0
