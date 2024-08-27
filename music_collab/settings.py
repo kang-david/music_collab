@@ -69,6 +69,7 @@ INSTALLED_APPS += [
     'health_check.db',
     'health_check.contrib.migrations',
     'storages',
+    'django_htmx',
 ]
 
 # Project apps
@@ -84,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_htmx.middleware.HtmxMiddleware',
 ]
 
 ROOT_URLCONF = 'music_collab.urls'

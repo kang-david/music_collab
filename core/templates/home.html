@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Home</h2>
+<h3>Your Songs:</h3>
+<div id="song-list">
+    <ul>
+        {% for song in songs %}
+        <li hx-get="{% url 'song_detail' song.id %}" hx-trigger="click" hx-target="#song-detail">
+            {{ song.title }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="song-detail">
+    <!-- Song detail  -->
+</div>
+
+{% endblock %}
